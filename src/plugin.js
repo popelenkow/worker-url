@@ -1,6 +1,6 @@
 /** @typedef {import("webpack").Compiler} Compiler */
 
-module.exports.createWorkerUrlPlugin = () => {
+const createWorkerUrlPlugin = () => {
 	/**
 	 * @param {Compiler} [compiler]
 	 */
@@ -18,3 +18,15 @@ module.exports.createWorkerUrlPlugin = () => {
 		});
 	};
 };
+
+class WorkerUrlPlugin {
+	constructor() {
+		this.build = createWorkerUrlPlugin();
+	}
+
+	apply(compiler) {
+		this.build(compiler);
+	}
+}
+
+module.exports = WorkerUrlPlugin;
