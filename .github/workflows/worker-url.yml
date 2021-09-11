@@ -1,0 +1,39 @@
+name: worker-url
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+  pull_request:
+    branches: [main]
+    paths:
+      - src/**
+  workflow_dispatch:
+    inputs:
+      npmPublishTag:
+        description: 'npm publish tag'
+        required: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+        registry-url: 'https://registry.npmjs.org'
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - run: python ../.github/workflows/setBuildNumber.py
+      env:
+        npmPublishTag: ${{ github.event.inputs.npmPublishTag }}
+        buildNumber: ${{ github.run_number }}
+    - run: yarn
+    - run: yarn publish --tag ${{ github.event.inputs.npmPublishTag }} --no-git-tag-version
+      if: github.event.inputs.npmPublishTag == 'next' || github.event.inputs.npmPublishTag == 'beta' || github.event.inputs.npmPublishTag == 'latest'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
