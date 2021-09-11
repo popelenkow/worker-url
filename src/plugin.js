@@ -1,6 +1,6 @@
 /** @typedef {import("webpack").Compiler} Compiler */
 
-module.exports.createWorkerUrlPlugin = () => {
+const createWorkerUrlPlugin = () => {
 	/**
 	 * @param {Compiler} [compiler]
 	 */
@@ -12,9 +12,21 @@ module.exports.createWorkerUrlPlugin = () => {
 			if (!javascript.worker) javascript.worker = [];
 			javascript.worker = [
 				...javascript.worker.filter(x => x !== '...'),
-				'WorkerUrl from WorkerUrl',
+				'WorkerUrl from worker-url',
 				'...',
 			];
 		});
 	};
 };
+
+class WorkerUrlPlugin {
+	constructor() {
+		this.build = createWorkerUrlPlugin();
+	}
+
+	apply(compiler) {
+		this.build(compiler);
+	}
+}
+
+module.exports = WorkerUrlPlugin;
