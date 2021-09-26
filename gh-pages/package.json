@@ -1,0 +1,16 @@
+{
+	"name": "musetric-gh-pages",
+	"description": "Auto publish Musetric application to github pages",
+	"version": "0.0.1",
+	"license": "MIT",
+	"scripts": {
+		"build": "rimraf dist && node build.js",
+		"deploy": "node deploy.js"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"copyfiles": "2.4.1",
+		"gh-pages": "3.2.3",
+		"rimraf": "3.0.2"
+	}
+}

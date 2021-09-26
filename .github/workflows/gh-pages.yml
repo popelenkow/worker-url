@@ -1,0 +1,47 @@
+name: gh-pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - gh-pages/**
+      - examples/**
+  pull_request:
+    branches: [main]
+    paths:
+      - gh-pages/**
+      - examples/**
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./gh-pages
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+        registry-url: 'https://registry.npmjs.org'
+    - name: Run examples/js yarn
+      run: yarn
+      working-directory: ./examples/js
+    - name: Run examples/js yarn build
+      run: yarn build
+      working-directory: ./examples/js
+    - name: Run examples/ts yarn
+      run: yarn
+      working-directory: ./examples/ts
+    - name: Run examples/ts yarn build
+      run: yarn build
+      working-directory: ./examples/ts
+    - run: yarn
+    - run: yarn build
+    - name: Configure git
+      run: |
+        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        git config --global user.email "popelenkow@gmail.com"
+        git config --global user.name "Vladlen Popelenkov"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: yarn deploy
+      if: ${{ github.event_name == 'push' }}
