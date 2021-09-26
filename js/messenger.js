@@ -1,0 +1,1 @@
+(()=>{"use strict";(e=>{const{worker:s}=e;s.onmessage=e=>{s.postMessage(`Hello, ${e.data}!`)}})({worker:self})})();
