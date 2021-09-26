@@ -31,7 +31,7 @@ const createConfig = (env) => {
 		output: {
 			publicPath: '/',
 			path: path.resolve(__dirname, "dist"),
-			filename: "[name].js"
+			filename: "[name].js",
 		},
 		plugins: [
 			new WorkerUrlPlugin(),

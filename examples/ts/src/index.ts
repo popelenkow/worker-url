@@ -6,10 +6,12 @@ import { getRoot, createInfoComponent, createWorkerComponent, createWorkletCompo
 const init = async () => {
 	const root = getRoot();
 
-	root.appendChild(createInfoComponent());
+	const infoComponent = createInfoComponent();
+	root.appendChild(infoComponent);
 
 	const messengerUrl = new WorkerUrl(new URL('./MessengerWorker.ts', import.meta.url), {
 		name: 'messenger',
+		customPath: () => new URL('messenger.js', window.location.href),
 	});
 	const messenger = createMessenger(messengerUrl);
 	const workerComponent = createWorkerComponent(messenger);
@@ -17,6 +19,7 @@ const init = async () => {
 
 	const oscillatorUrl = new WorkerUrl(new URL('./OscillatorWorklet.ts', import.meta.url), {
 		name: 'oscillator',
+		customPath: () => new URL('oscillator.js', window.location.href),
 	});
 	const oscillator = await createOscillator(oscillatorUrl);
 	const workletComponent = createWorkletComponent(oscillator);
