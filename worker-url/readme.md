@@ -7,7 +7,7 @@
 Tool to generate worker and woklet bundles with webpack v5.
 
 ```bash
-  npm i --save-dev worker-url
+npm i --save-dev worker-url
 ```
 
 **webpack.config.js**
@@ -35,6 +35,13 @@ const workletUrl = new WorkerUrl(new URL('./worklet.js', import.meta.url), {
 });
 audioContext.audioWorklet.addModule(workletUrl);
 ```
+
+## Examples
+
+Demo | Source
+--- | ---
+[JS WorkerUrl](https://popelenkow.github.io/worker-url/js/) | [./js](https://github.com/popelenkow/worker-url/tree/main/examples/js/)
+[TS WorkerUrl](https://popelenkow.github.io/worker-url/ts/) | [./ts](https://github.com/popelenkow/worker-url/tree/main/examples/ts/)
 
 ## What is the package for?
 

@@ -1,0 +1,26 @@
+{
+	"name": "js-worker-url-example",
+	"description": "JS WorkerUrl Example with webpack v5",
+	"version": "1.0.0",
+	"license": "MIT",
+	"main": "index.js",
+	"scripts": {
+		"dev": "webpack-dev-server --env dev",
+		"build": "rimraf dist && webpack"
+	},
+	"engines": {
+		"node": ">=12.17.0"
+	},
+	"peerDependencies": {
+		"webpack": ">=5.0.0"
+	},
+	"devDependencies": {
+		"copy-webpack-plugin": "9.0.1",
+		"rimraf": "3.0.2",
+		"webpack": "5.54.0",
+		"webpack-cli": "4.8.0",
+		"webpack-dev-server": "4.3.0",
+		"webpack-merge": "5.8.0",
+		"worker-url": "1.0.1"
+	}
+}

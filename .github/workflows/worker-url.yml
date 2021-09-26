@@ -3,11 +3,11 @@ on:
   push:
     branches: [main]
     paths:
-      - src/**
+      - worker-url/**
   pull_request:
     branches: [main]
     paths:
-      - src/**
+      - worker-url/**
   workflow_dispatch:
     inputs:
       npmPublishTag:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src
+        working-directory: ./worker-url
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
