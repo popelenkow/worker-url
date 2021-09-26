@@ -1,5 +1,10 @@
-type WorkerUrl = URL;
+type WorkerUrlOptions =
+	& WorkerOptions
+	& {
+		/** Override original url */
+		customPath?: () => URL;
+	};
 export declare const WorkerUrl: {
-	prototype: WorkerUrl;
-	new(scriptURL: WorkerUrl, options?: WorkerOptions): WorkerUrl;
+	prototype: URL;
+	new(scriptURL: URL, options?: WorkerUrlOptions): URL;
 };

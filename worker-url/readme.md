@@ -15,6 +15,9 @@ npm i --save-dev worker-url
 const WorkerUrlPlugin = require('worker-url/plugin');
 
 module.exports = {
+  output: {
+    publicPath: '/',
+  },
   plugins: [
     new WorkerUrlPlugin(),
   ],
@@ -23,7 +26,7 @@ module.exports = {
 
 **index.js**
 ```js
-const { WorkerUrl } = require('worker-url');
+import { WorkerUrl } from 'worker-url';
 
 const workerUrl = new WorkerUrl(new URL('./worker.js', import.meta.url), {
   name: 'worker',
@@ -34,6 +37,62 @@ const workletUrl = new WorkerUrl(new URL('./worklet.js', import.meta.url), {
   name: 'worklet',
 });
 audioContext.audioWorklet.addModule(workletUrl);
+```
+
+**index.ts**
+```js
+import { WorkerUrl } from 'worker-url';
+
+const workerUrl = new WorkerUrl(new URL('./worker.ts', import.meta.url), {
+  name: 'worker',
+});
+const worker = new Worker(workerUrl);
+
+const workletUrl = new WorkerUrl(new URL('./worklet.ts', import.meta.url), {
+  name: 'worklet',
+});
+audioContext.audioWorklet.addModule(workletUrl);
+```
+
+## Custom path
+
+It is possible to set the relative path using the webpack `publicPath`:
+
+**webpack.config.js**
+```js
+const WorkerUrlPlugin = require('worker-url/plugin');
+
+module.exports = {
+  output: {
+    publicPath: '/myRelativePath/',
+  },
+};
+```
+
+If the webpack configuration does not solve the problem, then you can use runtime routing with `customPath`:
+
+**index.js**
+```js
+const workerUrl = new WorkerUrl(new URL('./worker.js', import.meta.url), {
+  name: 'worker',
+  // Override original url
+  customPath: () => {
+    // Use any code
+    return new URL('worker.js', window.location.href);
+  },
+});
+```
+
+**index.ts**
+```ts
+const workerUrl = new WorkerUrl(new URL('./worker.ts', import.meta.url), {
+  name: 'worker',
+  // Override original url
+  customPath: () => {
+    // Use any code
+    return new URL('worker.js', window.location.href);
+  },
+});
 ```
 
 ## Examples

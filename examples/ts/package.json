@@ -24,6 +24,6 @@
 		"webpack-cli": "4.8.0",
 		"webpack-dev-server": "4.3.0",
 		"webpack-merge": "5.8.0",
-		"worker-url": "1.0.1"
+		"worker-url": "1.1.0"
 	}
 }

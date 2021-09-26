@@ -24,7 +24,7 @@ export const createInfoComponent = () => {
 	result.appendChild(header);
 
 	const language = document.createElement('div');
-	language.innerHTML = 'TS Example';
+	language.innerHTML = 'TS WorkerUrl Example';
 	result.appendChild(language);
 	
 	const version = document.createElement('div');
