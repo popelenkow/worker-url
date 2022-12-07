@@ -9,7 +9,7 @@ const createWorkerUrlPlugin = () => {
 			const { parser } = compiler.options.module;
 			if (!parser.javascript) parser.javascript = {};
 			const { javascript } = parser;
-			if (!javascript.worker) javascript.worker = [];
+			if (!javascript.worker || javascript.worker === true) javascript.worker = [];
 			javascript.worker = [
 				...javascript.worker.filter(x => x !== '...'),
 				'WorkerUrl from worker-url',
